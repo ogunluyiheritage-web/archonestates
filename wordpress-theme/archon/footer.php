@@ -1,0 +1,1 @@
+<footer class="archon-footer"><span>© <?php echo esc_html(date('Y')); ?> ARCHON STUDIO</span><span>DESIGNED WITH INTENTION</span><span>LAGOS · WORKING INTERNATIONALLY</span></footer><?php wp_footer(); ?></body></html>

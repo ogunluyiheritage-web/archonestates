@@ -197,7 +197,7 @@ function ImmersiveTour(){
  </section>
 }
 
-function Home(){
+function HomeIntro(){
  return <main>
   <ImmersiveTour/>
   <section className="intro section-pad"><Reveal><p className="eyebrow">OUR POINT OF VIEW</p><h2>Not just a building.<br/><em>A feeling, made tangible.</em></h2></Reveal><Reveal className="intro-bottom"><p>ARCHON is an architecture and design studio creating enduring places for living, gathering, and belonging. Every line has intention. Every detail earns its place.</p><Link to="/about" className="text-link">Discover our approach <ArrowUpRight size={16}/></Link></Reveal></section>

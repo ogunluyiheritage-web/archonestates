@@ -10,13 +10,6 @@ const projects = [
  {n:'02',name:'House on the Ridge',type:'Residential architecture',place:'Abuja, Nigeria',year:'2024',img:'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1500&q=85'},
  {n:'03',name:'The Glass Courtyard',type:'Concept residence',place:'Accra, Ghana',year:'2025',img:'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1500&q=85'}
 ];
-const rooms = [
- {title:'The Residence',sub:'A quiet statement from the outside.',eyebrow:'01 / ARRIVAL'},
- {title:'The Living Room',sub:'Light, proportion, and space to exhale.',eyebrow:'02 / GATHER'},
- {title:'The Kitchen',sub:'Designed around the rituals of everyday life.',eyebrow:'03 / CREATE'},
- {title:'The Private Suites',sub:'A considered retreat at the end of the day.',eyebrow:'04 / REST'},
- {title:'The Outdoor Sanctuary',sub:'Where architecture opens to the landscape.',eyebrow:'05 / UNWIND'}
-];
 
 function Header(){
  const [open,setOpen]=useState(false);
@@ -64,31 +57,32 @@ function ScrollVideoHero(){
   },section);
   return()=>{video.removeEventListener('loadedmetadata',syncDuration);ctx.revert();};
  },[]);
+ // Labels are timed to the actual footage: approach/doorway, living room, then pool.
+ // The supplied clip contains no distinct dining or kitchen shot, so those labels are intentionally omitted.
  const scenes=[
-  {start:0.14,end:0.28,eyebrow:'01 / ARRIVAL',title:'The Entrance',desc:'A considered approach, framed by stone, glass, and landscape.'},
-  {start:0.28,end:0.52,eyebrow:'02 / GATHER',title:'The Living Room',desc:'Open, calm living spaces where natural light and generous proportions do the work.'},
-  {start:0.52,end:0.70,eyebrow:'03 / CONNECT',title:'Dining & Kitchen',desc:'An open-plan heart of the home, designed for everyday rituals and shared moments.'},
-  {start:0.70,end:1.01,eyebrow:'04 / OUTDOORS',title:'The Garden & Pool',desc:'The architecture opens to landscaped grounds and a quiet outdoor retreat.'}
+  {start:0.22,end:0.50,eyebrow:'01 / ARRIVAL',title:'The Entrance',desc:'A measured arrival, framed by clean lines, natural stone and quiet landscape.'},
+  {start:0.50,end:0.72,eyebrow:'02 / LIVING',title:'The Living Room',desc:'A calm, light-filled space shaped around comfort, openness and everyday life.'},
+  {start:0.72,end:1.01,eyebrow:'03 / OUTDOORS',title:'The Garden & Pool',desc:'Living extends beyond the glass into a private garden and a restrained poolside retreat.'}
  ];
- const active=progress<0.14?-1:scenes.findIndex((scene)=>progress>=scene.start && progress<scene.end);
+ const active=progress<0.22?-1:scenes.findIndex((scene)=>progress>=scene.start && progress<scene.end);
  const current=active>=0?scenes[active]:null;
- const introOpacity=Math.max(0,Math.min(1,(0.17-progress)/0.055));
+ const introOpacity=Math.max(0,Math.min(1,(0.19-progress)/0.065));
+ const stage=progress<0.50?1:progress<0.72?2:3;
  return <section className="video-tour-wrap" ref={section} aria-label="Scroll-controlled residence tour">
   <div className="video-tour-sticky">
    <video ref={videoRef} className="video-tour-footage" src="/archon-tour.mp4" poster="/archon-poster.jpg" muted playsInline preload="auto" aria-label="Cinematic tour of a contemporary residence" />
    <div className="video-tour-shade" />
    <div className="video-tour-topline"><span className="tour-brand-label"><i/> ARCHON <b>/</b> PRIVATE RESIDENCE 01</span><span className="tour-instruction">SCROLL TO EXPLORE <ArrowDownRight size={15}/></span></div>
    <div className="video-tour-intro" style={{opacity:introOpacity,transform:`translateY(${(1-introOpacity)*18}px)`,pointerEvents:progress>.16?'none':'auto'}} aria-hidden={progress>.18}>
-    <p className="eyebrow">ARCHITECTURE · INTERIORS · LANDSCAPE</p>
-    <h1>High-end residential<br/><em>design & build.</em></h1>
-    <p className="video-tour-lede">Considered homes. Beautifully built. Designed for the way you live.</p>
-    <span className="video-scroll-cue"><span/> SCROLL TO BEGIN THE TOUR</span>
+    <p className="eyebrow hero-overline"><span>ARCHON / 01</span><i/> ARCHITECTURE · INTERIORS · LANDSCAPE</p>
+    <h1><span>High-end residential</span><br/><em>design &amp; build.</em></h1>
+    <div className="hero-intro-foot"><p className="video-tour-lede">Distinctive homes.<br/>Considered down to the last detail.</p><span className="video-scroll-cue"><span/> SCROLL TO EXPLORE</span></div>
    </div>
    {current&&<div className="video-room-label" key={current.title}>
     <span className="eyebrow">{current.eyebrow}</span><h2>{current.title}</h2><p>{current.desc}</p>
    </div>}
    <div className="video-tour-progress" aria-label={`Tour progress ${Math.round(progress*100)} percent`}><span style={{transform:`scaleX(${progress})`}}/></div>
-   <div className="video-tour-bottom"><span>ONE RESIDENCE · A CLOSER LOOK</span><span>{String(Math.min(4,Math.floor(progress*4)+1)).padStart(2,'0')} <b>/</b> 04</span></div>
+   <div className="video-tour-bottom"><span>ONE RESIDENCE · A CLOSER LOOK</span><span>{String(stage).padStart(2,'0')} <b>/</b> 03</span></div>
   </div>
  </section>
 }

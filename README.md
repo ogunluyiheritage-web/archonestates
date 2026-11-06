@@ -47,6 +47,10 @@ The `wordpress-theme/archon` folder is a separate starter theme you can upload i
 
 ## Scroll-controlled video hero
 
-The homepage hero uses the supplied residence-tour footage at `public/archon-tour.mp4`. Its playback position is synchronized to scroll progress; the headline fades as the tour begins and room descriptions change at marked points in the footage. The fixed glass navigation stays visible during the tour. Replace `public/archon-tour.mp4` with an updated export using the same filename if you generate a better/longer tour in Google Flow.
+The homepage hero uses the supplied residence-tour footage at `public/archon-tour.mp4`. Its playback position is synchronized to scroll progress. The opening headline fades away as the tour advances; labels are aligned to the actual visible sequence: entrance, living room, then garden and pool. Dining/kitchen labels were removed because those rooms are not clearly shown in the supplied clip. The fixed glass navigation stays visible throughout the scroll tour.
 
-For best results, use a 16:9 MP4 (H.264, 1080p if available), muted/no audio, with the exterior first and a smooth continuous camera path through the interior and garden. The current clip is approximately 10 seconds and labels are timed to its existing scenes.
+The provided source clip was only 736×414 pixels. The bundled version has been upscaled to 1280×720 with gentle sharpening and re-encoded at a high quality setting, which can reduce the softness of the previous encode but cannot restore details that were absent in the original. For genuinely crisp desktop playback, replace `public/archon-tour.mp4` with a native 1920×1080 or 4K export from Google Flow, keeping the same filename. Copy the replacement to `wordpress-theme/archon/assets/archon-tour.mp4` as well. Use H.264 MP4, 16:9, muted/no audio, with the exterior first and a smooth continuous camera path through the entrance, living room, and pool. Labels are timed to the supplied clip's current sequence.
+
+
+### Video quality note
+The hero video is upscaled to 2560 × 1440 and lightly denoised/sharpened. The original Pinterest clip is 736 × 414, so this improves display smoothness and compression but cannot recreate source details that were not present in the original. For genuinely native-detail clarity, replace the footage with a higher-resolution original.
